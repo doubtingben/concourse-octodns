@@ -21,4 +21,4 @@ jobs:
     trigger: true
   - put: concourse-octodns-image
     params:
-      build: concourse-octodns/
+      build: concourse-octodns-repo
