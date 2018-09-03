@@ -1,0 +1,24 @@
+resources:
+- name: concourse-octodns-repo
+  type: git
+  source:
+    uri: https://github.com/doubtingben/concourse-octodns.git
+    branch: master
+
+- name: concourse-octodns-image
+  type: docker-image
+  source:
+    email: ((docker-hub-email))
+    username: ((docker-hub-username))
+    password: ((docker-hub-password))
+    repository: ((docker-hub-username))/concourse-octodns
+
+jobs:
+- name: concourse-octodns build and publish
+  public: true
+  plan:
+  - get: concourse-octodns-repo
+    trigger: true
+  - put: concourse-octodns-image
+    params:
+      build: concourse-octodns/
